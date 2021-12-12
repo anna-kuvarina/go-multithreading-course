@@ -1,8 +1,8 @@
 package main
 
 import (
+	. "github.com/AnnaKuvarina/go-multithreding-course/deadlocks_train/arbitrator"
 	. "github.com/AnnaKuvarina/go-multithreding-course/deadlocks_train/common"
-	. "github.com/AnnaKuvarina/go-multithreding-course/deadlocks_train/hierarchy"
 	"sync"
 
 	"github.com/hajimehoshi/ebiten/v2"
