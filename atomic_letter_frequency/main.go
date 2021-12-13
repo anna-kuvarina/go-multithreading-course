@@ -6,12 +6,13 @@ import (
 	"net/http"
 	"strings"
 	"sync"
+	"sync/atomic"
 	"time"
 )
 
 const allLetters = "abcdefghijklmnoqprstuvwxyz"
 
-var lock = sync.Mutex{}
+// var lock = sync.Mutex{}
 
 func countLetters(url string, frequency *[26]int32, wg *sync.WaitGroup) {
 	resp, _ := http.Get(url)
@@ -21,12 +22,10 @@ func countLetters(url string, frequency *[26]int32, wg *sync.WaitGroup) {
 	for i := 0; i < 20; i++ {
 		for _, b := range body {
 			c := strings.ToLower(string(b))
-			lock.Lock()
 			index := strings.Index(allLetters, c)
 			if index >= 0 {
-				frequency[index] += 1
+				atomic.AddInt32(&frequency[index], 1)
 			}
-			lock.Unlock()
 		}
 	}
 
